@@ -1,7 +1,7 @@
-from django.contrib.auth.models import User
 from django.db import models
 
 from api.models.letter import Letter
+from .user import User
 
 
 class Remark(models.Model):
