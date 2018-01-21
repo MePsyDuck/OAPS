@@ -15,3 +15,5 @@ class Inbox(models.Model):
     def __str__(self):
         if self.is_starred:
             return '<star> %s : %s' % (self.user, self.letter)
+        else:
+            return '%s : %s' % (self.user, self.letter)
