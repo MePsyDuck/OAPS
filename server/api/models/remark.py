@@ -17,6 +17,8 @@ class Remark(models.Model):
 
     action = models.IntegerField(choices=ACTION_CHOICES, default=2)
     message = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     # Foreign keys
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='remarks')
