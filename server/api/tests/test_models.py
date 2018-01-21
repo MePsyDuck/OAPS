@@ -27,14 +27,20 @@ class ModelTest(TestCase):
         Remark.objects.create(letter=letter, user=user2, action=Remark.APPROVED, message='Go on')
 
     def test_models(self):
-        # check faculty
+        # check user
         user = User.objects.get(username='new_user')
+        user2 = User.objects.get(username='new_user_student')
+        self.assertTrue(user.check_password('secret'))
+        self.assertFalse(user.check_password('secrettop'))
+        self.assertFalse(user2.check_password('secret'))
+        self.assertTrue(user2.check_password('secrettop'))
+
+        # check faculty
         self.assertTrue(user.is_faculty())
         self.assertFalse(user.is_student())
         self.assertEqual(str(user.faculty), 'TTS5214')
 
         # check student
-        user2 = User.objects.get(username='new_user_student')
         self.assertTrue(user2.is_student())
         self.assertFalse(user2.is_faculty())
         self.assertEqual(str(user2.student), 'VTU7362')
