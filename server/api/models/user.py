@@ -10,7 +10,7 @@ class User(AbstractUser):
         (FACULTY, 'Faculty'),
     ]
 
-    acc_type = models.IntegerField(choices=ACC_TYPE_CHOICES)
+    acc_type = models.IntegerField(choices=ACC_TYPE_CHOICES, default=STUDENT)
 
     def is_faculty(self):
         return self.acc_type == self.FACULTY
