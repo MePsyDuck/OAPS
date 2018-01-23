@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import datetime
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -35,8 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'api',
-    'rest_framework'
+    'rest_framework',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -70,9 +76,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
@@ -127,3 +136,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'api.User'
+
+# Configure the JWTs to expire after 1 hour, and allow users to refresh near-expiration tokens
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'JWT_ALLOW_REFRESH': True,
+}
+
+REST_USE_JWT = True
+
+SITE_ID = 1
