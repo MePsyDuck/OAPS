@@ -16,6 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from api.views import FacultyView, InboxView, LetterView, RemarkView, StudentView, UserView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('user/', UserView.as_view()),
+    path('letter/', LetterView.as_view()),
+    path('faculty/', FacultyView.as_view()),
+    path('inbox/', InboxView.as_view()),
+    path('remark/', RemarkView.as_view()),
+    path('student/', StudentView.as_view()),
 ]
