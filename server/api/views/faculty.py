@@ -8,7 +8,7 @@ from api.serializers import FacultySerializer
 
 class FacultyView(APIView):
     def get(self, request):
-        fac_id = request.data.get('id')
+        fac_id = request.query_params.get('id')
         try:
             fac = Faculty.objects.get(pk=fac_id)
             serializer = FacultySerializer(fac)

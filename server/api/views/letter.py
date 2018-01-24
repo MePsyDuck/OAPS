@@ -8,7 +8,7 @@ from api.serializers import LetterSerializer
 
 class LetterView(APIView):
     def get(self, request):
-        letter_id = request.data.get('id')
+        letter_id = request.query_params.get('id')
         try:
             letter = Letter.objects.get(pk=letter_id)
             serializer = LetterSerializer(letter)

@@ -8,7 +8,7 @@ from api.serializers import RemarkSerializer
 
 class RemarkView(APIView):
     def get(self, request):
-        remark_id = request.data.get('id')
+        remark_id = request.query_params.data.get('id')
         try:
             remark = Remark.objects.get(pk=remark_id)
             serializer = RemarkSerializer(remark)

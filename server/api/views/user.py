@@ -8,7 +8,7 @@ from api.serializers import UserSerializer
 
 class UserView(APIView):
     def get(self, request):
-        user_id = request.data.get('id')
+        user_id = request.query_params.get('id')
         try:
             user = User.objects.get(pk=user_id)
             serializer = UserSerializer(user)

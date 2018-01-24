@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 
 from api.views import FacultyView, InboxView, LetterView, RemarkView, StudentView, UserView
 
@@ -27,5 +27,7 @@ urlpatterns = [
     path('inbox/', InboxView.as_view()),
     path('remark/', RemarkView.as_view()),
     path('student/', StudentView.as_view()),
-    path('auth/', obtain_jwt_token),
+    path(r'api-token-auth/', obtain_jwt_token),
+    path(r'api-token-refresh/', refresh_jwt_token),
+    path(r'api-token-verify/', verify_jwt_token),
 ]

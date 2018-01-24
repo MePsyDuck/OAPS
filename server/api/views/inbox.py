@@ -9,7 +9,7 @@ from api.serializers import InboxSerializer
 class InboxView(APIView):
     # No CUD
     def get(self, request):
-        user_id = request.data.get('id')
+        user_id = request.query_params.get('id')
         try:
             inbox = Inbox.objects.filter(user_id=user_id)
             serializer = InboxSerializer(inbox, many=True)

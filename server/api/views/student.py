@@ -8,7 +8,7 @@ from api.serializers import StudentSerializer
 
 class StudentView(APIView):
     def get(self, request):
-        std_id = request.data.get('id')
+        std_id = request.query_params.get('id')
         try:
             std = Student.objects.get(pk=std_id)
             serializer = StudentSerializer(std)
