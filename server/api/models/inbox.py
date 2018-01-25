@@ -1,10 +1,9 @@
 from django.db import models
 
-from api.models.letter import Letter
+from .letter import Letter
 from .user import User
 
 
-# TODO every time letter is added a entry for inbox should be added, same for updates
 class Inbox(models.Model):
     is_starred = models.BooleanField(default=False)
 
