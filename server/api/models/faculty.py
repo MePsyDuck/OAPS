@@ -4,7 +4,7 @@ from .user import User
 
 
 class Faculty(models.Model):
-    tts_id = models.IntegerField()
+    tts_id = models.IntegerField(null=True)
 
     # Foreign keys
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='faculty')

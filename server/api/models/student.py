@@ -5,8 +5,8 @@ from .user import User
 
 
 class Student(models.Model):
-    vtu_id = models.IntegerField()
-    reg_id = models.CharField(max_length=10)
+    vtu_id = models.IntegerField(null=True)
+    reg_id = models.CharField(max_length=10, null=True)
 
     # Foreign keys
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student')
