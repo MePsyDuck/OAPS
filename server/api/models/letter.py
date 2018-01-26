@@ -24,4 +24,4 @@ class Letter(models.Model):
 def add_inbox(sender, instance, created, **kwargs):
     if created:
         from api.models import Inbox
-        Inbox.objects.create(letter=instance, user_id=instance.sender_id)
+        Inbox.objects.create(letter=instance, user_id=instance.receiver_id)

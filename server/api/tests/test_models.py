@@ -22,8 +22,7 @@ class ModelTest(TestCase):
                                         receiver=user,
                                         is_read=True,
                                         )
-        Inbox.objects.create(user=user, letter=letter, is_starred=True)
-        Inbox.objects.create(user=user, letter=letter2)
+        Inbox.objects.filter(user=user, letter=letter).update(is_starred=True)
         Remark.objects.create(letter=letter, user=user2, action=Remark.APPROVED, message='Go on')
 
     def test_models(self):
