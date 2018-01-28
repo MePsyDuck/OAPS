@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from api.models import Faculty, Student, Letter, Inbox, User, Remark
+from api.models import Letter, Inbox, User, Remark
 
 
 class ModelTest(TestCase):
@@ -9,8 +9,12 @@ class ModelTest(TestCase):
                                         acc_type=User.FACULTY)
         user2 = User.objects.create_user(username='new_user_student', email='new2@user.com', password='secrettop',
                                          acc_type=User.STUDENT)
-        faculty = Faculty.objects.create(user=user, tts_id=5214)
-        Student.objects.create(user=user2, reg_id='15bats3201', vtu_id=7362, mentor=faculty)
+        user.faculty.tts_id = 5214
+        user2.student.reg_id = '15bats3201'
+        user2.student.vtu_id = 7362
+        user2.student.mentor = user.faculty
+        user.faculty.save()
+        user2.student.save()
         letter = Letter.objects.create(body='Hi this is first email',
                                        subject='Test subject',
                                        sender=user2,
@@ -20,7 +24,6 @@ class ModelTest(TestCase):
                                         subject='Test subject second',
                                         sender=user2,
                                         receiver=user,
-                                        is_read=True,
                                         )
         Inbox.objects.filter(user=user, letter=letter).update(is_starred=True)
         Remark.objects.create(letter=letter, user=user2, action=Remark.APPROVED, message='Go on')
@@ -51,12 +54,11 @@ class ModelTest(TestCase):
         letter2 = Letter.objects.get(pk=2)
         self.assertEqual(letter.body, 'Hi this is first email')
         self.assertEqual(letter.subject, 'Test subject')
-        self.assertFalse(letter.is_read)
         self.assertEqual(letter.sender, user2)
         self.assertEqual(letter.receiver, user)
         self.assertEqual(letter2.body, 'Hi this is second email')
         self.assertEqual(letter2.subject, 'Test subject second')
-        self.assertTrue(letter2.is_read)
+
         self.assertEqual(letter2.sender, user2)
         self.assertEqual(letter2.receiver, user)
 

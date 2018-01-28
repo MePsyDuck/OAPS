@@ -13,4 +13,7 @@ class Student(models.Model):
     mentor = models.ForeignKey(Faculty, null=True, on_delete=models.SET_NULL, related_name='mentees')
 
     def __str__(self):
-        return "VTU%d" % self.vtu_id
+        if self.vtu_id:
+            return "VTU%d" % self.vtu_id
+        else:
+            return "Not set"

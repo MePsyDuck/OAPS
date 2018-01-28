@@ -6,6 +6,7 @@ from .user import User
 
 class Inbox(models.Model):
     is_starred = models.BooleanField(default=False)
+    is_read = models.BooleanField(default=False)
 
     # Foreign keys
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='inbox')

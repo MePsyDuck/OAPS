@@ -7,8 +7,7 @@ from .user import User
 
 class Letter(models.Model):
     body = models.TextField()
-    is_read = models.BooleanField(default=False)
-    subject = models.CharField(max_length=30)
+    subject = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
