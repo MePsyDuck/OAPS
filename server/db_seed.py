@@ -40,7 +40,7 @@ seeder.add_entity(User, COUNT, {
 })
 
 seeder.add_entity(Letter, COUNT, {
-    'body': lambda x: seeder.faker.paragraphs(nb=3),
+    'body': lambda x: seeder.faker.text(),
     'subject': lambda x: seeder.faker.sentence(nb_words=6),
 })
 
