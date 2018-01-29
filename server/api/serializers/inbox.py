@@ -6,4 +6,4 @@ from api.models import Inbox
 class InboxSerializer(serializers.ModelSerializer):
     class Meta:
         model = Inbox
-        fields = ('id', 'is_starred', 'user', 'letter')
+        fields = ('id', 'is_starred', 'user', 'letter', 'is_read')
