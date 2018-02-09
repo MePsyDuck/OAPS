@@ -19,16 +19,22 @@ class UserView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            if request.user.id == serializer.validated_data['id']:
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
         try:
             user_id = request.data.get('id')
-            user = User.objects.get(id=user_id)
-            user.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            if request.user.id == user_id:
+                user = User.objects.get(id=user_id)
+                user.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
         except User.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)

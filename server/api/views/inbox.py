@@ -10,9 +10,12 @@ class InboxView(APIView):
     # No CUD
     def get(self, request):
         user_id = request.query_params.get('id')
-        try:
+        if request.user.id == user_id:
             inbox = Inbox.objects.filter(user_id=user_id)
-            serializer = InboxSerializer(inbox, many=True)
-            return Response(serializer.data)
-        except Inbox.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            if inbox.count() == 0:
+                serializer = InboxSerializer(inbox, many=True)
+                return Response(serializer.data)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
