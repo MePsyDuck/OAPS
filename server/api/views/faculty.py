@@ -7,8 +7,7 @@ from api.serializers import FacultySerializer
 
 
 class FacultyView(APIView):
-    def get(self, request):
-        fac_id = request.query_params.get('id')
+    def get(self, request, fac_id):
         try:
             fac = Faculty.objects.get(pk=fac_id)
             serializer = FacultySerializer(fac)
@@ -30,9 +29,8 @@ class FacultyView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request):
+    def delete(self, request, fac_id):
         try:
-            fac_id = request.data.get('id')
             if request.user.is_faculty():
                 if request.user.faculty.id == fac_id:
                     std = Faculty.objects.get(id=fac_id)

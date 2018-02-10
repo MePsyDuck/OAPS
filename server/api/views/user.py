@@ -7,8 +7,7 @@ from api.serializers import UserSerializer
 
 
 class UserView(APIView):
-    def get(self, request):
-        user_id = request.query_params.get('id')
+    def get(self, request, user_id):
         try:
             user = User.objects.get(pk=user_id)
             serializer = UserSerializer(user)
@@ -27,9 +26,8 @@ class UserView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request):
+    def delete(self, request, user_id):
         try:
-            user_id = request.data.get('id')
             if request.user.id == user_id:
                 user = User.objects.get(id=user_id)
                 user.delete()

@@ -8,11 +8,10 @@ from api.serializers import InboxSerializer
 
 class InboxView(APIView):
     # No CUD
-    def get(self, request):
-        user_id = request.query_params.get('id')
+    def get(self, request, user_id):
         if request.user.id == user_id:
             inbox = Inbox.objects.filter(user_id=user_id)
-            if inbox.count() == 0:
+            if inbox.count() != 0:
                 serializer = InboxSerializer(inbox, many=True)
                 return Response(serializer.data)
             else:

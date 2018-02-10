@@ -7,8 +7,7 @@ from api.serializers import RemarkSerializer
 
 
 class RemarkView(APIView):
-    def get(self, request):
-        remark_id = request.query_params.data.get('id')
+    def get(self, request, remark_id):
         try:
             remark = Remark.objects.get(pk=remark_id)
             serializer = RemarkSerializer(remark)
@@ -32,8 +31,7 @@ class RemarkView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request):
-        remark_id = request.data.get('id')
+    def delete(self, request, remark_id):
         try:
             remark = Remark.objects.get(id=remark_id)
             if remark.user == request.user:

@@ -7,8 +7,7 @@ from api.serializers import LetterSerializer
 
 
 class LetterView(APIView):
-    def get(self, request):
-        letter_id = request.query_params.get('id')
+    def get(self, request, letter_id):
         try:
             letter = Letter.objects.get(pk=letter_id)
             if Inbox.objects.filter(user=request.user, letter=letter).exists():
@@ -30,9 +29,8 @@ class LetterView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request):
+    def delete(self, request, letter_id):
         try:
-            letter_id = request.data.get('id')
             letter = Letter.objects.get(id=letter_id)
             if letter.sender == request.user:
                 letter.delete()

@@ -21,12 +21,12 @@ from api.views import FacultyView, InboxView, LetterView, RemarkView, StudentVie
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', UserView.as_view()),
-    path('letter/', LetterView.as_view()),
-    path('faculty/', FacultyView.as_view()),
-    path('inbox/', InboxView.as_view()),
-    path('remark/', RemarkView.as_view()),
-    path('student/', StudentView.as_view()),
+    path('user/<int:user_id>', UserView.as_view()),
+    path('letter/<int:letter_id>', LetterView.as_view()),
+    path('faculty/<int:fac_id>', FacultyView.as_view()),
+    path('inbox/<int:user_id>', InboxView.as_view()),
+    path('remark/<int:remark_id>', RemarkView.as_view()),
+    path('student/<int:std_id>', StudentView.as_view()),
     path(r'api-token-auth/', obtain_jwt_token),
     path(r'api-token-refresh/', refresh_jwt_token),
     path(r'api-token-verify/', verify_jwt_token),
