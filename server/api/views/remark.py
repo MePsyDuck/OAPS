@@ -12,7 +12,7 @@ class RemarkView(APIView):
             remark = Remark.objects.get(pk=remark_id)
             serializer = RemarkSerializer(remark)
             if Inbox.objects.filter(user=request.user,
-                                    letter=remark.letter).exists() or remark.letter.user == request.user:
+                                    letter=remark.letter).exists() or remark.letter.sender == request.user:
                 return Response(serializer.data)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
