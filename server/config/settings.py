@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'django_seed',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -152,3 +153,16 @@ JWT_AUTH = {
 REST_USE_JWT = True
 
 SITE_ID = 1
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        },
+        'JWT': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
