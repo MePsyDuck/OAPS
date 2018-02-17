@@ -21,16 +21,16 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 
-from api.views import FacultyView, InboxView, LetterView, RemarkView, StudentView, UserView
+from api.views import FacultyView, InboxView, LetterView, RemarkView, StudentView, UserView, MeView
 
 schema_view = get_schema_view(
     openapi.Info(
         title="OAPS API",
         default_version='v1',
-        description="Test description",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@snippets.local"),
-        license=openapi.License(name="BSD License"),
+        description="OAPS API documentation",
+        terms_of_service="oaps/terms",
+        contact=openapi.Contact(email="admin@oaps.local"),
+        license=openapi.License(name="MIT License"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -43,6 +43,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/<int:user_id>', UserView.as_view()),
     path('letter/<int:letter_id>', LetterView.as_view()),
+    path('me/', MeView.as_view()),
     path('faculty/<int:fac_id>', FacultyView.as_view()),
     path('inbox/<int:user_id>', InboxView.as_view()),
     path('remark/<int:remark_id>', RemarkView.as_view()),
