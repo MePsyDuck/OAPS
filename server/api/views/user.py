@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.decorators import APIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from api.models import User
@@ -18,11 +18,8 @@ class UserView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            if request.user.id == serializer.validated_data['id']:
-                serializer.save()
-                return Response(serializer.data)
-            else:
-                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            serializer.save()
+            return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
