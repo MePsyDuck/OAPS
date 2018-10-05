@@ -1,4 +1,4 @@
-Django==2.0.4
-django_seed==0.1.8
-drf_yasg==1.6.1
-djangorestframework==3.8.2
+Django
+django_seed
+drf_yasg
+djangorestframework
