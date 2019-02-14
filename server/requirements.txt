@@ -1,4 +1,4 @@
-Django
+django>=2.0.11
 django_seed
 drf_yasg
 djangorestframework
